@@ -10,8 +10,8 @@
 #include <sys/syscall.h>
 #include <sys/time.h>
 #include <sys/stat.h>
-
-#if defined __NR_futimesat && defined __NR_utimensat
+#include <stddef.h>
+#ifdef __NR_utimensat
 /*
  * Approach below modified from:
  * libc/sysdeps/linux/common/futimens.c
@@ -30,4 +30,5 @@ int futimesat (int fd, const char *file, const struct timeval tvp[2])
 	__set_errno(EINVAL);
 	return -1;
 }
+//libc_hidden_def(futimesat)
 #endif
